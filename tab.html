@@ -18,18 +18,18 @@
 </body>
 
 <script>
-    let app = new Vue({
+    var app = new Vue({
         el: "#app",
         data: {
             tab: 1
         },
         methods: {
             tabChange: function(e){
-                console.log(e);
-                let tab = e.target.dataset.id;
-
+                let tabid = e.target.dataset.id;
+                console.log(this.tab);
+                console.log(tabid);
                 // app.tab等同于this.tab
-                app.tab = tab;
+                app.tab = tabid;
             }
         },
     })

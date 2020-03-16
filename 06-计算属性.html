@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <!-- 一般写法 -->
+            <h1>{{ firstName+lastName }}</h1>
+            <h1>{{ word.split("").reverse().join("")}}</h1>
+            <!-- 计算属性 
+                反复计算下性能较好
+            -->
+            <h1>{{ fullName }}</h1>
+            <h1>{{ reverseWord }}</h1>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            firstName: '张',
+            lastName: '三',
+            word: 'music'
+        },
+        computed: {
+            fullName: function(){
+                // this 指向 app
+                // 会将计算的结果进行缓存，只要内容不修改，就不计算
+                return this.firstName + this.lastName;
+            },
+            reverseWord: function(){
+                return this.word.split("").reverse().join("");
+            }
+        }
+    })
+</script>
+</html>

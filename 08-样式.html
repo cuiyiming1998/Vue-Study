@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+    <style>
+        .page{
+            width: 200px;
+            height: 200px;
+            display: none;
+        }
+        .active{
+            display: block;
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 通过对象的方式决定是否存在某个类 -->
+        <div class="page" :class="{active: 'isActive'}"></div>
+        <!-- 放置对象 -->
+        <div class="page" :class="styleObj"></div>
+        <!-- 放置数组 -->
+        <div class="page" :class="styleArr"></div>
+        <!-- 放置字符串 -->
+        <div class="page" :class="styleStr"></div>
+        <!-- 数组和对象混合 -->
+        <div class="page" :class="styleArrObj"></div>
+
+    </div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            isTrue: true,
+            styleObj: {active: true, display: true},
+            styleArr: ['col-xs-12','red-bg'],
+            styleStr: 'abc def qwe',
+            styleArrObj: ['abc',{active: isActive}]
+        }
+    })
+</script>
+</html>
