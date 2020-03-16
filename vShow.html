@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    
+    <title>Vue</title>
+
+    <style type="text/css">
+        #pane{
+            width: 200px;
+            height: 200px;
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div id="pane" v-show="isShow">
+            Hello Vue
+        </div>
+        <button @click="showPane">显示切换内容</button>
+    </div>
+
+
+    <script>
+        console.log(Vue);
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                isShow: true
+            },
+            // 方法
+            methods: {
+                showPane: function (e){
+                    console.log(e);
+                    app.isShow = !app.isShow;
+                }
+            },
+        });
+
+        /* 
+            v-if:不显示时，第一次就直接不渲染，如果是内容已经显示将其改为不显示，将内容直接从Dom去除，
+                只是渲染一次的内容用v-if;
+            v-show:不显示时，就会改为display:none,但是会渲染到dom上。    
+        */
+
+    </script>
+</body>
+</html>
