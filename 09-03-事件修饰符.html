@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- stop修饰符阻止冒泡事件向上传递 -->
+        <div class="btnParent" @click="clickParent">
+            <button type="button" @click.stop="clickEvent">点击</button>
+        </div>
+        <!-- prevent修饰符阻止默认事件 -->
+        <form action="" method="post">
+            <!-- 绑定输入框回车事件 -->
+            <input type="text" name="username" v-model="city" id="" @keydown.enter.f1="searchWeather">
+            <input @click.prevent="searchWeather" type="submit" value="提交">
+        </form>
+        <div id="weather">
+            <h2>{{city0}} 今天 {{ tmp }} 摄氏度</h2>
+            <h3>{{ brief }}</h3>
+        </div>
+        <!-- once只出发一次修饰符 -->
+        <button type="button" @click.once="onceEvent">once修饰符</button>
+        <!-- exact修饰符，精确控制 -->
+        <button type="button" @click.space.exact="spaceEvent">同时按下鼠标和Ctrl</button>
+        <!-- 鼠标按钮事件 
+            .left
+            .middle
+            .right
+        -->
+    </div>
+</body>
+<script type="text/javascript">
+    // 按键自定义修饰符
+    Vue.config.keyCodes = {
+        f1: 112
+    };
+    var app = new Vue({
+        el: "#app",
+        data: {
+            count: 0,
+            city: '北京',
+            city0: '北京',
+            tmp: 10,
+            brief: ''
+        },
+        methods: {
+            clickEvent: function(event){
+                console.log('clickEvent');
+            },
+            clickParent: function(event){
+                console.log('clickParent');
+            },
+            searchWeather: async function(){
+                let httpUrl = 'https://free-api.heweather.net/s6/weather/now?location='+this.city+'&key=740192290ada4adfb809c13578a015ba';
+                let res = await fetch(httpUrl);
+                let result = await res.json();
+                console.log(result);
+
+                let now = result.HeWeather6[0].now;
+
+                this.tmp = now.tmp;
+                this.brief = now.cond_txt;
+                this.city0 = this.city;
+            },
+            onceEvent: function(){
+                console.log('只触发一次！');
+            },
+            spaceEvent: function(){
+                console.log('同时按下Space');
+            }
+        },
+    })
+</script>
+</html>

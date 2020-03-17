@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <h1> 点击次数{{ count }} </h1>
+        <!-- 可以使用表达式来完成事件操作 -->
+        <button type="button" @click="count+=1">第一种方法</button>
+        <!-- 获取事件对象 -->
+        <button type="button" @click="clickEvent">第二种方法</button>
+    </div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            count: 0
+        },
+        methods: {
+            clickEvent: function(event){
+                console.log(event);
+                this.count++;
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滑动菜单</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .page{
+            width: 100vw;
+            height: 100vh;
+            background-color: #efefef;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .rMenu{
+            width: 50vw;
+            height: 100vh;
+            background-color: skyblue;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transform: translateX(100vw);
+            transition: transform 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="page">
+            首页
+            <button type="button" @click="toggleMenu">切换侧边栏</button>
+        </div>
+        <div class="rMenu" :style="{transform: 'translateX('+menuWidth+'vw)'}">
+            侧边栏
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            menuWidth: 100
+        },
+        methods: {
+            toggleMenu: function(){
+                if(this.menuWidth == 100) {
+                    this.menuWidth = 50;
+                }else{
+                    this.menuWidth = 100;
+                }
+            }
+        },
+    })
+</script>
+</html>

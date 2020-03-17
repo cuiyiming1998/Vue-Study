@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item,index in stars" @click="clickEvent(index,item,$event)">索引值：{{ index }} ------ 内容：{{ item }}</li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            stars: ['蔡徐坤','华晨宇','周杰伦']
+        },
+        methods: {
+            clickEvent: function(index,value,event){
+                console.log(index);
+                console.log(value);
+                console.log(event);
+            }
+        },
+    })
+</script>
+</html>
