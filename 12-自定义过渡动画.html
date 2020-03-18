@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过渡动画</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/animate.css">
+    <style>
+        .main{
+            width:100vw;
+            height:200px;
+        }
+        .content{
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+        .text{
+            width: 300px;
+            height: 50px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .bounce-enter-active{
+            animation: bounce-in .5s;
+        }
+        .bounce-leave-active{
+            animation: bounce-in .5s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0) ;
+            }
+            50% {
+                transform: scale(1.5) ;
+            }
+            100% {
+                transform: scale(1) ;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+            使用v-if/v-show
+            动态组件
+            组件根节点
+            可以使用transition过渡
+        -->
+        <div class="main">
+            <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+                <div v-show="isShow" class="content">
+                </div>
+            </transition>
+            </div>
+        <button @click="toggleEvent">切换内容</button>
+        <button @click="show = !show">动画显示文字</button>
+        <div class="text">
+            <transition name="bounce">
+                <h2 v-if="show">Hello Vue!</h2>
+            </transition>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            isShow: false,
+            show: false
+        },
+        methods: {
+            toggleEvent: function(){
+                this.isShow = !this.isShow;
+            }
+        },
+    })
+</script>
+</html>

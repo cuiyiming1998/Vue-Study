@@ -25,8 +25,17 @@
             position: fixed;
             left: 0;
             top: 0;
+            transform: translateX(50vw);
+        }
+        .slide-enter-active{
+            transition: all 3s;
+        }
+        .slide-leave-active{
+            opacity: 0;
+            transition: all 3s;
+        }
+        .slide-enter, .slide-leave-to {
             transform: translateX(100vw);
-            transition: transform 0.5s;
         }
     </style>
 </head>
@@ -36,24 +45,24 @@
             首页
             <button type="button" @click="toggleMenu">切换侧边栏</button>
         </div>
-        <div class="rMenu" :style="{transform: 'translateX('+menuWidth+'vw)'}">
-            侧边栏
-        </div>
+        <!-- 使用过渡效果 -->
+        <transition name="slide">
+            <div class="rMenu" v-if="isShow">
+                侧边栏
+            </div>
+        </transition>
     </div>
 </body>
 <script type="text/javascript">
     var app = new Vue({
         el: "#app",
         data: {
-            menuWidth: 100
+            menuWidth: 100,
+            isShow: false
         },
         methods: {
             toggleMenu: function(){
-                if(this.menuWidth == 100) {
-                    this.menuWidth = 50;
-                }else{
-                    this.menuWidth = 100;
-                }
+                this.isShow = !this.isShow;
             }
         },
     })

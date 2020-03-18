@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单输入绑定</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 单行文本输入 -->
+        <input type="text" name="username" v-model="username" name="">
+        <p>{{ username }}</p>
+
+        <!-- 多行文本输入 -->
+        <textarea name="" id="" cols="" rows="" v-model.lazy="username"></textarea>
+
+        <!-- 复选框 -->
+        <h2>选择喜欢的水果</h2>
+        <span v-for="item in fruits">
+            {{ item }}
+            <input type="checkbox" name="fruits" v-model="checkFruits" :value="item" >
+        </span>
+        <h3>{{ checkFruits }}</h3>
+
+        <!-- 选项框 -->
+        <h2>选择你喜欢的城市</h2>
+        <select v-model="cityLiked" multiple>
+            <!-- 解决ios bug -->
+            <option disabled >--请选择--</option>
+            <option v-for="item in cities" :value="item">{{ item }}</option>
+        </select>
+        <h3>{{ cityLiked }}</h3>
+
+        <!-- 将字符串变为数字 -->
+        <input type="text" name="age" v-model.number="age">
+    </div>
+</body>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            username: '小明',
+            fruits: ['苹果','雪梨','香蕉','葡萄'],
+            checkFruits: [],
+            cities: ['北京','上海','纽约','巴黎','柏林'],
+            cityLiked: [],
+            age: 16
+        },
+        watch: {
+            age: function(val){
+                console.log(this.age);
+            }
+        }
+    })
+</script>
+</html>
