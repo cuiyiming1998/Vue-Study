@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件传值</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- 从父组件传值到子组件 -->
+            <product-com v-for="(item, index) in proList" :index="index" :key="index":product="item" @choose-product='changeEvent'></product-com>
+            <!-- 子组件传传给父组件 -->
+            <h2> 选中的是{{ choose }}</h2>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+
+    /* 
+        父组件向子组件传值：
+            通过 : 绑定 ，子组件通过props获得该值
+
+        子组件向父组件传值：
+            子组件内触发传值事件，通过 $emit 自定义事件，将值传入
+            触发自定义事件调用父组件的方法，获得传入的值
+    */
+
+
+    // 产品组件
+    Vue.component('product-com',{
+        props: ['product','index'],
+        template: `
+            <li>
+                <h3>产品名称：{{ product.title }}</h3>
+                <h4>产品描述:{{ product.brief }}</h4>
+                <p>产品价格：{{ product.price }}</p>
+                <button @click='choose(product)'> 选择 </button>
+            </li>
+                    `,
+        methods: {
+            choose: function(product){
+                console.log(product);
+                // 将子元素数据传递给父元素，需要自定义触发事件，实现数据的传值
+                // 触发事件名称--chooseProduct
+                this.$emit('choose-product',product.title)
+            }
+        }
+    })
+
+    // 根组件
+    var app = new Vue({
+        el: "#app",
+        data: {
+            proList:[
+                {
+                    title: '产品1',
+                    price: '10',
+                    brief: '产品描述1'
+                },
+                {
+                    title: '产品2',
+                    price: '20',
+                    brief: '产品描述2'
+                },
+                {
+                    title: '产品3',
+                    price: '30',
+                    brief: '产品描述3'
+                }
+            ],
+            choose: ''
+        },
+        methods: {
+            changeEvent: function(data){
+                console.log(data);
+                this.choose = data;
+            }
+        }
+    })
+
+
+</script>
+</html>
