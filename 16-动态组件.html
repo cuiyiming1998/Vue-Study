@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="content">
+            <component :is="coms"></component>
+        </div>
+        <button @click="choseContent(1)">首页</button>
+        <button @click="choseContent(2)">列表</button>
+        <button @click="choseContent(3)">新闻</button>
+        <button @click="choseContent(4)">个人</button>
+    </div>
+</body>
+<script type="text/javascript">
+    let com1 = Vue.component('index-com', {
+        name: 'index',
+        template: '<h1>首页内容</h1>'
+    })
+    let com2 = Vue.component('list-com', {
+        template: '<h1>列表内容</h1>'
+    })
+    let com3 = Vue.component('news-com', {
+        template: '<h1>新闻内容</h1>'
+    })
+    let com4 = Vue.component('me-com', {
+        template: '<h1>个人内容</h1>'
+    })
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            coms:com1
+        },
+        methods: {
+            choseContent: function(id){
+                console.log(id);
+                this.coms = this.$options.components['com'+id];
+            }
+        },
+        components: {
+            com1,com2,com3,com4
+        }
+    })
+</script>
+</html>
